@@ -1,0 +1,15 @@
+---
+application:
+  name: "api-mail-tm"
+  project: "api-tempmail-mailtp"
+  organization: "QoveryCommunity"
+databases:
+- type: "MYSQL"
+  name: "api"
+  version: "5.6"
+routers:
+- name: "main-api-mail-tm"
+  routes:
+  - application_name: "api-mail-tm"
+    paths:
+    - "/*"
