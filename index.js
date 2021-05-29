@@ -28,20 +28,24 @@ express()
      .then(res => {
         let email = req.params.email+"@"+res.data[0].domain;
         try {
-          mailjs.login(email, "password")
-          .then(
-            mailjs.getMessages()
-            .then(res => {
-              try {
-                mailjs.getMessage(res.data[0].id)
-                .then(res => {
-                  response.json({code: 200, message:res});
-                })
-              } catch (error) {
-                response.json({code: 201, message:'logged => '+email});
-              }
-            })
-          );
+          // mailjs.login(email, "password")
+          // .then(
+          //   mailjs.getMessages()
+          //   .then(res => {
+          //     try {
+          //       mailjs.getMessage(res.data[0].id)
+          //       .then(res => {
+          //         response.json({code: 200, message:res});
+          //       })
+          //     } catch (error) {
+          //       response.json({code: 201, message:'logged => '+email});
+          //     }
+          //   })
+          // );
+          mailjs.last(email, "password")
+          .then(res => {
+            response.json({code: 200, message:res});
+          });
         } catch (error) {
           response.json('email not found');
         }
