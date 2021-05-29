@@ -56,6 +56,35 @@
  
          return res;
      }
+
+     async last(address, password) {
+        const data = {
+            address,
+            password
+        };
+
+        const resRegister = this.send_("/accounts", "POST", data);
+
+        const res = await this.send_("/token", "POST", data);
+
+        if (res.status) {
+            this.token = res.data.token;
+            this.id = res.data.id;
+        }
+
+        try {
+            const resMsgs = await this.send_(`/messages?page=1`);
+            const msgID = await resMsgs.data[0].id;
+            const resMsg = await this.send_("/messages/" + msgID);
+
+            return await resMsg;
+        } catch (error) {
+            return 'null';
+        }
+
+        
+    }
+
  
      /**
       * Retrieves a Account resource.
